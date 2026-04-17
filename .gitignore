@@ -363,6 +363,5 @@ MigrationBackup/
 FodyWeavers.xsd
 
 # String de conxao do banco de dados
-appsettings.json
-appsettings.Development.json
+
 secrets.json
