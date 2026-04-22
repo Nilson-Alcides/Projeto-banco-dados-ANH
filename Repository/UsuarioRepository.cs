@@ -1,4 +1,5 @@
-﻿using Segundo_App_BancoDados.Models;
+﻿using MySql.Data.MySqlClient;
+using Segundo_App_BancoDados.Models;
 using Segundo_App_BancoDados.Repository.Contract;
 
 namespace Segundo_App_BancoDados.Repository
@@ -18,7 +19,21 @@ namespace Segundo_App_BancoDados.Repository
 
         public void Cadastrar(Usuario usuario)
         {
-            throw new NotImplementedException();
+            using (var conexao = new MySqlConnection(_conexaoMySQL))
+            {
+                conexao.Open();
+
+                MySqlCommand cmd = new MySqlCommand("insert into usuario(nomeUsu, Cargo, DataNasc) " +
+                                                " values (@nomeUsu, @Cargo, @DataNasc )", conexao); // @: PARAMETRO
+
+                cmd.Parameters.Add("@nomeUsu", MySqlDbType.VarChar).Value = usuario.nomeUsu;
+                cmd.Parameters.Add("@Cargo", MySqlDbType.VarChar).Value = usuario.cargo;
+                // cmd.Parameters.Add("@DataNasc", MySqlDbType.VarChar).Value = usuario.DataNasc.ToString("yyyy/MM/dd");
+                cmd.Parameters.Add("@DataNasc", MySqlDbType.VarChar).Value = usuario.dataNasc.ToString("yyyy/MM/dd");
+
+                cmd.ExecuteNonQuery();
+                conexao.Close();
+            }
         }
 
         public void Excluir(int id)
