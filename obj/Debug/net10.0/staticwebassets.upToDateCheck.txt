@@ -1,3 +1,4 @@
+wwwroot\banco\Script_Usuario.sql
 wwwroot\css\site.css
 wwwroot\favicon.ico
 wwwroot\js\site.js
@@ -61,7 +62,6 @@ wwwroot\lib\jquery\dist\jquery.slim.js
 wwwroot\lib\jquery\dist\jquery.slim.min.js
 wwwroot\lib\jquery\dist\jquery.slim.min.map
 wwwroot\lib\jquery\LICENSE.txt
-wwwroot\banco\Script_Usuario.sql
 C:\Users\Nilson\source\repos\ASPNETCORE\Segundo_App_BancoDados\Segundo_App_BancoDados\wwwroot\css\site.css
 C:\Users\Nilson\source\repos\ASPNETCORE\Segundo_App_BancoDados\Segundo_App_BancoDados\wwwroot\favicon.ico
 C:\Users\Nilson\source\repos\ASPNETCORE\Segundo_App_BancoDados\Segundo_App_BancoDados\wwwroot\js\site.js
