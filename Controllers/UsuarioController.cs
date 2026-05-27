@@ -14,7 +14,7 @@ namespace Segundo_App_BancoDados.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+            return View(_usuarioRepository.ObterTodosUsuarios());
         }
         [HttpGet]
         public IActionResult CadastrarUsuario()
