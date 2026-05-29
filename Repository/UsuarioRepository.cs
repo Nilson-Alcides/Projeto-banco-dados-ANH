@@ -15,7 +15,20 @@ namespace Segundo_App_BancoDados.Repository
         }
         public void Atualizar(Usuario usuario)
         {
-            throw new NotImplementedException();
+            using (var conexao = new MySqlConnection(_conexaoMySQL))
+            {
+                conexao.Open();
+                MySqlCommand cmd = new MySqlCommand("Update usuario set nomeUsu=@nomeUsu, Cargo=@Cargo, " +
+                                                    " DataNasc=@DataNasc Where IdUsu=@IdUsu;", conexao);
+
+                cmd.Parameters.Add("@nomeUsu", MySqlDbType.VarChar).Value = usuario.nomeUsu;
+                cmd.Parameters.Add("@Cargo", MySqlDbType.VarChar).Value = usuario.cargo;
+                cmd.Parameters.Add("@DataNasc", MySqlDbType.VarChar).Value = usuario.dataNasc.ToString("yyyy/MM/dd");
+                cmd.Parameters.Add("@IdUsu", MySqlDbType.VarChar).Value = usuario.IdUsu;
+
+                cmd.ExecuteNonQuery();
+                conexao.Close();
+            }
         }
 
         public void Cadastrar(Usuario usuario)
@@ -39,7 +52,14 @@ namespace Segundo_App_BancoDados.Repository
 
         public void Excluir(int id)
         {
-            throw new NotImplementedException();
+            using (var conexao = new MySqlConnection(_conexaoMySQL))
+            {
+                conexao.Open();
+                MySqlCommand cmd = new MySqlCommand("delete from usuario where IdUsu=@IdUsu", conexao);
+                cmd.Parameters.AddWithValue("@IdUsu", id);
+                int i = cmd.ExecuteNonQuery();
+                conexao.Close();
+            }
         }
 
         public IEnumerable<Usuario> ObterTodosUsuarios()
@@ -71,10 +91,29 @@ namespace Segundo_App_BancoDados.Repository
                 return UsuarioList;
             }
         }
-
         public Usuario ObterUsuario(int id)
         {
-            throw new NotImplementedException();
+            using (var conexao = new MySqlConnection(_conexaoMySQL))
+            {
+                conexao.Open();
+                MySqlCommand cmd = new MySqlCommand("SELECT * from usuario " +
+                                                    " where IdUsu=@IdUsu", conexao);
+                cmd.Parameters.AddWithValue("@IdUsu", id);
+
+                MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+                MySqlDataReader dr;
+
+                Usuario usuario = new Usuario();
+                dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+                while (dr.Read())
+                {
+                    usuario.IdUsu = Convert.ToInt32(dr["IdUsu"]);
+                    usuario.nomeUsu = (string)(dr["nomeUsu"]);
+                    usuario.cargo = (string)(dr["Cargo"]);
+                    usuario.dataNasc = Convert.ToDateTime(dr["DataNasc"]);
+                }
+                return usuario;
+            }
         }
     }
 }

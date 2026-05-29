@@ -31,5 +31,16 @@ namespace Segundo_App_BancoDados.Controllers
             }
             return View();
         }
+
+        [HttpGet]
+        public IActionResult Atualizar(int id)
+        {
+            return View(_usuarioRepository.ObterUsuario(id));
+        }
+        [HttpPost]
+        public IActionResult Atualizar(Usuario usuario)
+        {
+            return View();
+        }
     }
 }
